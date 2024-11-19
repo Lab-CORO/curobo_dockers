@@ -23,7 +23,7 @@ if ! [[ "$OSTYPE" == "msys" ]]; then
     xhost +local:docker
 
     # Exécutez le conteneur Docker avec les bonnes options
-    docker run --name capacitynet_docker --rm -it \
+    docker run --name leeloo_docker --rm -it \
         --privileged \
         -e NVIDIA_DISABLE_REQUIRE=1 \
         -e NVIDIA_DRIVER_CAPABILITIES=all \
@@ -34,12 +34,12 @@ if ! [[ "$OSTYPE" == "msys" ]]; then
         --network host \
         -e DISPLAY=$DISPLAY \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
-        capacitynet_docker:x86 \
+        leeloo_docker:x86 \
         ${branch_arg}
 else
     echo "Detected OS is msys, make sure to have an X server running on your host machine"
     # Exécutez seulement le conteneur Docker avec les options appropriées
-    docker run --name capacitynet_docker --rm -it \
+    docker run --name leeloo_docker --rm -it \
         --privileged \
         -e NVIDIA_DISABLE_REQUIRE=1 \
         -e NVIDIA_DRIVER_CAPABILITIES=all \
@@ -49,6 +49,10 @@ else
         --network host \
         -e DISPLAY=$DISPLAY \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
-        capacitynet_docker:x86 \
+        leeloo_docker:x86 \
         ${branch_arg}
 fi
+
+
+
+

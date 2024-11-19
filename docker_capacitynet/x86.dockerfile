@@ -6,7 +6,9 @@ FROM curobo_docker:x86
 WORKDIR /home/ros2_ws/src
 RUN git clone https://github.com/Lab-CORO/CapaciNet.git  -b main
 
-
+WORKDIR /home
+RUN git clone https://github.com/rogersce/cnpy.git
+RUN cd cnpy && mkdir build && cd build && cmake .. && make && make install
 
 
 

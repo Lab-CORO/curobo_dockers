@@ -32,6 +32,9 @@ done
 
 # Rebuild the workspace
 cd ${ROS_WS}
+source /opt/ros/humble/setup.bash
+colcon build --packages-select curobo_msgs
+source ${ROS_WS}/install/setup.bash
 colcon build
 
 # Add ROS environment setup to bashrc
