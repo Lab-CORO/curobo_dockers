@@ -16,6 +16,9 @@
 
 # Check architecture to build:
 image_tag="x86"
+git_username=$1
+git_email=$2
+
 if 
 [ -n "$(docker images -q curobo_docker:x86)" ]
 then
@@ -26,4 +29,4 @@ else
     bash ../docker_curobo/build_docker.sh
 fi
 
-docker build  -t capacitynet_docker:${image_tag} -f "x86.dockerfile" . 
+docker build --build-arg GIT_USERNAME=${git_username} --build-arg GIT_EMAIL=${git_email} -t capacitynet_docker:${image_tag} -f "x86.dockerfile" . 
