@@ -1,0 +1,18 @@
+[submodule "curobo/curobo_ros"]
+	path = curobo/curobo_ros
+	url = https://github.com/Lab-CORO/curobo_ros.git
+[submodule "curobo/curobo_rviz"]
+	path = curobo/curobo_rviz
+	url = https://github.com/Lab-CORO/curobo_rviz.git
+[submodule "curobo/curobo_msgs"]
+	path = curobo/curobo_msgs
+	url = https://github.com/Lab-CORO/curobo_msgs.git
+[submodule "leeloo/pointcloud_fusion"]
+	path = leeloo/pointcloud_fusion
+	url = https://github.com/Lab-CORO/pointcloud_fusion.git
+[submodule "leeloo/tool_box"]
+	path = leeloo/tool_box
+	url = https://github.com/Lab-CORO/tool_box.git
+[submodule "capacitynet/CapaciNet"]
+	path = capacitynet/CapaciNet
+	url = https://github.com/Lab-CORO/CapaciNet.git
