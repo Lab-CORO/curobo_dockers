@@ -52,27 +52,6 @@ RUN apt-get install -y ros-humble-gazebo-ros-pkgs ros-humble-moveit-msgs\
         ros-humble-ros2-controllers ros-humble-gazebo-msgs ros-humble-moveit-msgs\
         dbus-x11 ros-humble-moveit-configs-utils ros-humble-moveit-ros-move-group libignition-gazebo6-dev
 
-# Add tools for pcd_fuse
-RUN apt remove python3-blinker -y
-
-# Install Open3D system dependencies and pip
-RUN apt-get update && apt-get install --no-install-recommends -y \
-    libegl1 \
-    libgl1 \
-    libgomp1 \
-    python3-pip \
-    ros-humble-tf-transformations\
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Open3D from the PyPI repositories
-RUN python3 -m pip install --no-cache-dir --upgrade pip && \
-    python3 -m pip install --no-cache-dir --upgrade open3d
-
-# # # Set the workspace directory
-WORKDIR /home/ros2_ws/src
-
-# # # Clone the repository directly into the src directory
-RUN git clone -b humble https://github.com/Box-Robotics/ros2_numpy.git
 
 WORKDIR /home/ros2_ws
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \
