@@ -23,7 +23,7 @@ if ! [[ "$OSTYPE" == "msys" ]]; then
     xhost +local:docker
 
     # Exécutez le conteneur Docker avec les bonnes options
-    docker run --name capacitynet_docker --rm -it \
+    docker run --name capacitynet_docker -it \
         --privileged \
         -e NVIDIA_DISABLE_REQUIRE=1 \
         -e NVIDIA_DRIVER_CAPABILITIES=all \
