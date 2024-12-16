@@ -1,6 +1,6 @@
 FROM curobo_docker:x86
 
-# add camera azure kinect
+# Add camera azure kinect
 RUN apt-add-repository -y -n 'deb http://archive.ubuntu.com/ubuntu focal main' && \
     apt-add-repository -y 'deb http://archive.ubuntu.com/ubuntu focal universe'
 RUN apt-get install -y libsoundio1
@@ -27,18 +27,21 @@ RUN sudo dpkg -i /tmp/k4a-tools_1.3.0_amd64.deb
 
 COPY 99-k4a.rules /etc/udev/rules.d/99-k4a.rules
 
-# Add azure ros2 package
+# Add realsense lib
+RUN apt install ros-humble-librealsense2* ros-humble-realsense2-* -y 
+
+# Add azure, doosan, tool_box and pcd_fuse ros2 package
 WORKDIR /home/ros2_ws/src
 
-# add point cloud fusion
+# Add point cloud fusion
 RUN git clone https://github.com/Lab-CORO/pointcloud_fusion.git && git clone https://github.com/Lab-CORO/tool_box.git && \
         git clone -b humble-devel https://github.com/doosan-robotics/doosan-robot2.git && \
         git clone -b humble https://github.com/ros-controls/gz_ros2_control && \
-        git clone -b humble https://github.com/microsoft/Azure_Kinect_ROS_Driver.git
+        git clone -b humble https://github.com/microsoft/Azure_Kinect_ROS_Driver.git 
 
 RUN sed -i '771d' /home/ros2_ws/src/Azure_Kinect_ROS_Driver/src/k4a_ros_device.cpp
 
-### install gazebo sim
+### install gazebo sim for doosan package
 RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
 RUN wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 RUN apt-get update
@@ -49,6 +52,27 @@ RUN apt-get install -y ros-humble-gazebo-ros-pkgs ros-humble-moveit-msgs\
         ros-humble-ros2-controllers ros-humble-gazebo-msgs ros-humble-moveit-msgs\
         dbus-x11 ros-humble-moveit-configs-utils ros-humble-moveit-ros-move-group libignition-gazebo6-dev
 
+# Add tools for pcd_fuse
+RUN apt remove python3-blinker -y
+
+# Install Open3D system dependencies and pip
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    libegl1 \
+    libgl1 \
+    libgomp1 \
+    python3-pip \
+    ros-humble-tf-transformations\
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Open3D from the PyPI repositories
+RUN python3 -m pip install --no-cache-dir --upgrade pip && \
+    python3 -m pip install --no-cache-dir --upgrade open3d
+
+# # # Set the workspace directory
+WORKDIR /home/ros2_ws/src
+
+# # # Clone the repository directly into the src directory
+RUN git clone -b humble https://github.com/Box-Robotics/ros2_numpy.git
 
 WORKDIR /home/ros2_ws
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \

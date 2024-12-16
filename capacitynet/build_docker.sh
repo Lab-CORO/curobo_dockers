@@ -26,7 +26,7 @@ then
 else
     echo "Docker image curobo_docker:x86 does not exist"
     echo "Building docker image curobo_docker:x86"
-    bash ../docker_curobo/build_docker.sh
+    bash ../curobo/build_docker.sh
 fi
 
 docker build --build-arg GIT_USERNAME=${git_username} --build-arg GIT_EMAIL=${git_email} -t capacitynet_docker:${image_tag} -f "x86.dockerfile" . 

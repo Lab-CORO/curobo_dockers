@@ -87,6 +87,7 @@ ARG CACHE_DATE=2024-07-19
 
 RUN pip install "robometrics[evaluator] @ git+https://github.com/fishbotics/robometrics.git"
 
+
 # if you want to use a different version of curobo, create folder as docker/pkgs and put your
 # version of curobo there. Then uncomment below line and comment the next line that clones from
 # github
@@ -143,19 +144,6 @@ RUN export LD_LIBRARY_PATH="/opt/hpcx/ucx/lib:$LD_LIBRARY_PATH"
 ADD http://archive.ubuntu.com/ubuntu/pool/main/libu/libusb-1.0/libusb-1.0-0_1.0.25-1ubuntu2_amd64.deb /tmp/libusb-1.0-0_1.0.25-1ubuntu2_amd64.deb
 RUN dpkg -i /tmp/libusb-1.0-0_1.0.25-1ubuntu2_amd64.deb
 
-RUN sudo mkdir -p /etc/apt/keyrings && \
-    curl -sSf https://librealsense.intel.com/Debian/librealsense.pgp | \
-    sudo tee /etc/apt/keyrings/librealsense.pgp > /dev/null
-
-RUN echo "deb [signed-by=/etc/apt/keyrings/librealsense.pgp] https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" | \
-    sudo tee /etc/apt/sources.list.d/librealsense.list
-
-RUN apt-get update && apt-get install -y \
-    librealsense2-dbg \
-    librealsense2-dev \
-    librealsense2-dkms \
-    librealsense2-utils && \
-    rm -rf /var/lib/apt/lists/*
 
 ##### Installing ROS Humble ######
 
@@ -175,7 +163,6 @@ RUN apt-get update && apt-get install -y \
     python3-rosdep \
     ros-humble-joint-state-publisher \
     ros-humble-joint-state-publisher-gui \
-    ros-humble-librealsense2* \
     ros-humble-moveit \
     ros-humble-realsense2-* \
     && rm -rf /var/lib/apt/lists/*
@@ -207,14 +194,38 @@ RUN /bin/bash -c "source /opt/ros/humble/setup.bash && cd /home/ros2_ws && colco
 RUN echo "source /home/ros2_ws/install/setup.bash" >> ~/.bashrc
 
 RUN sudo rosdep init # "sudo rosdep init --include-eol-distros" && \
-    rosdep update # "sudo rosdep update --include-eol-distros" && \
-    rosdep install -i --from-path src --rosdistro "$ROS_DISTRO" --skip-keys=librealsense2 -y
+    rosdep update # "sudo rosdep update --include-eol-distros" 
 
 # Setup for trajectory_preview
 RUN git clone https://github.com/swri-robotics/trajectory_preview.git
 
 # Setup for curobo_rviz
 RUN git clone https://github.com/Lab-CORO/curobo_rviz.git
+
+# Add tools for pcd_fuse
+RUN apt remove python3-blinker -y
+
+# Install Open3D system dependencies and pip
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    libegl1 \
+    libgl1 \
+    libgomp1 \
+    python3-pip \
+    ros-humble-tf-transformations\
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Open3D from the PyPI repositories
+RUN python3 -m pip install --no-cache-dir --upgrade pip && \
+    python3 -m pip install --no-cache-dir --upgrade open3d
+
+# # # Set the workspace directory
+WORKDIR /home/ros2_ws/src
+
+# # # Clone the repository directly into the src directory
+RUN git clone -b humble https://github.com/Box-Robotics/ros2_numpy.git
+
+
+# Build workspace
 WORKDIR /home/ros2_ws
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \
     colcon build"
