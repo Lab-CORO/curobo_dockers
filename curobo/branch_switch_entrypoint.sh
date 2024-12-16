@@ -19,6 +19,7 @@ cd ${SRC_DIR}
 
 for PACKAGE in */; do
     if [ -d "${PACKAGE}/.git" ]; then
+        git config --global --add safe.directory ${SRC_DIR}/${PACKAGE}
         echo "Updating package: ${PACKAGE}"
         cd ${PACKAGE}
         git fetch

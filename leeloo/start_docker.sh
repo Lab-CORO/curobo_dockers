@@ -34,6 +34,12 @@ if ! [[ "$OSTYPE" == "msys" ]]; then
         --network host \
         -e DISPLAY=$DISPLAY \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
+        -v ./curobo_ros:/home/ros2_ws/src/curobo_ros\
+        -v ./curobo_rviz:/home/ros2_ws/src/curobo_rviz\
+        -v ./curobo_msgs:/home/ros2_ws/src/curobo_msgs\
+        -v ./pointcloud_fusion:/home/ros2_ws/src/pointcloud_fusion\
+        -v ./tool_box:/home/ros2_ws/src/tool_box\
+
         leeloo_docker:x86 \
         ${branch_arg}
 else
