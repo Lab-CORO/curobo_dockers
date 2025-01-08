@@ -163,6 +163,7 @@ RUN apt-get update && apt-get install -y \
     python3-rosdep \
     ros-humble-joint-state-publisher \
     ros-humble-joint-state-publisher-gui \
+    ros-humble-nav2-msgs \
     ros-humble-moveit \
     ros-humble-realsense2-* \
     && rm -rf /var/lib/apt/lists/*
