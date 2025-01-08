@@ -34,6 +34,10 @@ if ! [[ "$OSTYPE" == "msys" ]]; then
         --network host \
         -e DISPLAY=$DISPLAY \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
+        -v $PWD/../curobo/curobo_ros:/home/ros2_ws/src/curobo_ros\
+        -v $PWD/../curobo/curobo_rviz:/home/ros2_ws/src/curobo_rviz\
+        -v $PWD/../curobo/curobo_msgs:/home/ros2_ws/src/curobo_msgs\
+        -v ./capacitynet:/home/ros2_ws/src/capacitynet\
         capacitynet_docker:x86 \
         ${branch_arg}
 else

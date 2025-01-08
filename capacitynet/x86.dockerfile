@@ -5,7 +5,7 @@ ARG GIT_USERNAME
 ARG GIT_EMAIL
 
 WORKDIR /home/ros2_ws/src
-RUN git clone https://github.com/Lab-CORO/CapaciNet.git  -b main
+# RUN git clone https://github.com/Lab-CORO/CapaciNet.git  -b main
 
 WORKDIR /home
 RUN git clone https://github.com/rogersce/cnpy.git
@@ -39,6 +39,4 @@ RUN make -j$(nproc) && make install
 
 
 WORKDIR /home/ros2_ws
-RUN apt remove python3-blinker -y
-RUN pip install open3d
 ENV CMAKE_PREFIX_PATH='/home/HighFive/build/install:${CMAKE_PREFIX_PATH}'

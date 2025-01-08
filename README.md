@@ -19,5 +19,5 @@ all docker that use curobo_ros for the lab
   ```
 - import every packages
     ```bash
-    vcs import < my.repos
+    vcs import < my.repos --recursive
     ```
