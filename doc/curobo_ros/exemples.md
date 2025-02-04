@@ -11,12 +11,12 @@ The motion generation and the inverse kinematics features can use obstacles and 
 
 | Service Name | Service Type | Description | Callback Function |
 |-------------|-------------|-------------|------------------|
-| `<node_name>/add_object` | [`AddObject`](../../curobo/curobo_msgs/srv/AddObject.srv) | Adds a new object to the scene, allowing collision checking with the environment. | `callback_add_object` |
-| `<node_name>/remove_object` | [`RemoveObject`](../../curobo/curobo_msgs/srv/RemoveObject.srv) | Removes a specific object from the scene. | `callback_remove_object` |
+| `<node_name>/add_object` | [`AddObject`](https://github.com/Lab-CORO/curobo_msgs/blob/main/srv/AddObject.srv) | Adds a new object to the scene, allowing collision checking with the environment. | `callback_add_object` |
+| `<node_name>/remove_object` | [`RemoveObject`](https://github.com/Lab-CORO/curobo_msgs/blob/main/srv/RemoveObject.srv) | Removes a specific object from the scene. | `callback_remove_object` |
 | `<node_name>/get_obstacles` | `Trigger` | Retrieves a list of all obstacles currently present in the scene. | `callback_get_obstacles` |
 | `<node_name>/remove_all_objects` | `Trigger` | Clears all objects from the scene. | `callback_remove_all_objects` |
-| `<node_name>/get_voxel_grid` | [`GetVoxelGrid`](../../curobo/curobo_msgs/srv/GetVoxelGrid.srv) | Retrieves a voxelized representation of the environment for collision checking. | `callback_get_voxel_grid` |
-| `<node_name>/get_collision_distance` | [`GetCollisionDistance`](../../curobo/curobo_msgs/srv/GetCollisionDistance.srv) | Computes the distance between objects and potential collisions in the scene. | `callback_get_collision_distance` |
+| `<node_name>/get_voxel_grid` | [`GetVoxelGrid`](https://github.com/Lab-CORO/curobo_msgs/blob/main/srv/GetVoxelGrid.srv) | Retrieves a voxelized representation of the environment for collision checking. | `callback_get_voxel_grid` |
+| `<node_name>/get_collision_distance` | [`GetCollisionDistance`](https://github.com/Lab-CORO/curobo_msgs/blob/main/srv/GetCollisionDistance.srv) | Computes the distance between objects and potential collisions in the scene. | `callback_get_collision_distance` |
 
 | Topic Name | Message Type | Description |
 |-------------|-------------|-------------|
@@ -60,7 +60,7 @@ These services compute inverse kinematics for multiple target poses while also u
 
 | Service Name | Service Type | Description | Callback Function |
 |-------------|-------------|-------------|------------------|
-| `<node_name>/ik_batch_poses` | `Ik` | Computes the inverse kinematics (IK) for multiple target poses. | `ik_callback` |
+| `<node_name>/ik_batch_poses` | [`Ik`](https://github.com/Lab-CORO/curobo_msgs/blob/main/srv/Ik.srv) | Computes the inverse kinematics (IK) for multiple target poses. | `ik_callback` |
 
 Batch IK relies on the same object management services used for motion generation, ensuring collision-aware calculations.
 
@@ -72,7 +72,7 @@ Unlike motion generation and batch IK, forward kinematics does not use object ma
 
 | Service Name | Service Type | Description | Callback Function |
 |-------------|-------------|-------------|------------------|
-| `<node_name>/fk_compute` | `Fk` | Computes the forward kinematics given a set of joint positions. | `fk_callback` |
+| `<node_name>/fk_compute` | [`Fk`](https://github.com/Lab-CORO/curobo_msgs/blob/main/srv/Fk.srv) | Computes the forward kinematics given a set of joint positions. | `fk_callback` |
 
 ---
 
