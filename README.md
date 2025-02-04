@@ -1,6 +1,7 @@
 # curobo_dockers
-all docker that use curobo_ros for the lab
+Docker to use curobo_ros and others features.
 
+## Table of Contents
 - curobo_ros
     - [installation](doc/curobo_ros/installation.md)
     - [exemples](doc/curobo_ros/exemples.md)
@@ -21,3 +22,11 @@ all docker that use curobo_ros for the lab
     ```bash
     vcs import < my.repos --recursive
     ```
+    
+---
+
+## Contributors
+Developed and maintained by the CoRo Lab.
+
+For issues and contributions, visit [GitHub Repository](https://github.com/Lab-CORO/curobo_ros).
+
