@@ -243,5 +243,5 @@ RUN sed -i '171d' /usr/local/lib/python3.10/dist-packages/cv2/typing/__init__.py
 COPY branch_switch_entrypoint.sh /home/
 
 
-ENTRYPOINT [ "/home/branch_switch_entrypoint.sh" ]
+# Not needed anymore ENTRYPOINT [ "/home/branch_switch_entrypoint.sh" ]
 
